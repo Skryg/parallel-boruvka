@@ -46,6 +46,5 @@ int main(int argc, char* argv[])
         Generator gen(N,M);
         g = gen.generate_graph();
     } 
-
-
+    return 0;
 }

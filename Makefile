@@ -5,7 +5,7 @@ INC_DIR=include
 
 PROG_NAME=main
 CC=g++
-CFLAGS=-I$(INC_DIR) -g
+CFLAGS=-I$(INC_DIR) -g -O3
 
 SRCS=main.cpp graph_generator.cpp program_options.cpp
 OBJS:=$(SRCS:.cpp=.o)
