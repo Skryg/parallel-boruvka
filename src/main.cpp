@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
     }
     else
     {
+        //Generate graph
         Generator gen(N,M);
         g = gen.generate_graph();
     } 
