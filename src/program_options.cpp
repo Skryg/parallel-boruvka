@@ -10,11 +10,13 @@ int program_options::get_num(std::string arg){
         if (pos < arg.size()) {
         std::cerr << "Trailing characters after number: " << arg << '\n';
         }
+        return x;
     } catch (std::invalid_argument const &ex) {
         std::cerr << "Invalid number: " << arg << '\n';
     } catch (std::out_of_range const &ex) {
         std::cerr << "Number out of range: " << arg << '\n';
     }
+    return -1;
 }
 
 void program_options::parse(int argc, char* argv[])

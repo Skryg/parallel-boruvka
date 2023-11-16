@@ -37,7 +37,7 @@ Generator::Generator(int n, int m, int wmin, int wmax)
     this->weight_max = wmax;
 }
 
-graph<list_el>&& Generator::generate_graph()
+graph<list_el> Generator::generate_graph()
 {
     if(m<n-1) throw std::invalid_argument("Number of edges shouldn't be less than number of vertices-1.");
     if(weight_max<weight_min) throw std::invalid_argument("Weight max cannot be less than weight min");
@@ -82,7 +82,7 @@ graph<list_el>&& Generator::generate_graph()
             edges.insert({v1,v2});
         }
     }
-    return std::move(g);
+    return g;
 }
 
 void Generator::set_weight_min(int w)

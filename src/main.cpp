@@ -7,7 +7,7 @@
 #include "par_boruvka.h"
 #include "program_options.h"
 
-graph<list_el>&& graph_input(int N, int M){
+graph<list_el> graph_input(int N, int M){
     graph<list_el> g;
     // N vertices, M edges
     g.assign(N+1, list_el());
@@ -19,7 +19,7 @@ graph<list_el>&& graph_input(int N, int M){
         g[v].push_back({u,weight});
         g[u].push_back({v,weight});
     }
-    return std::move(g);
+    return g;
 }
 
 int main(int argc, char* argv[])

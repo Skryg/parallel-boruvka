@@ -19,7 +19,7 @@ public:
     Generator();
     Generator(int,int);
     Generator(int,int,int,int);
-    graph<list_el>&& generate_graph();
+    graph<list_el> generate_graph();
     void set_weight_min(int);
     void set_weight_max(int);
     void set_vertices(int);
