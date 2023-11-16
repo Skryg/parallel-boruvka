@@ -6,7 +6,7 @@ INC_DIR=include
 PROG_NAME=main
 CFLAGS=-I$(INC_DIR) -g
 
-SRCS=main.cpp
+SRCS=main.cpp 
 OBJS:=$(SRCS:.c=.o)
 OBJS:=$(addprefix $(OBJ_DIR)/,$(OBJS))
 
