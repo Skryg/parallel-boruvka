@@ -5,9 +5,9 @@ INC_DIR=include
 
 PROG_NAME=main
 CC=g++
-CFLAGS=-I$(INC_DIR) -g -O3
+CFLAGS=-I$(INC_DIR) -g -O3 -std=c++17 -fopenmp -pthread
 
-SRCS=main.cpp graph_generator.cpp program_options.cpp
+SRCS=main.cpp graph_generator.cpp program_options.cpp dsu.cpp seq_boruvka.cpp par_boruvka_openmp.cpp par_boruvka_threads.cpp
 OBJS:=$(SRCS:.cpp=.o)
 OBJS:=$(addprefix $(OBJ_DIR)/,$(OBJS))
 

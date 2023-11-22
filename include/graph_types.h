@@ -1,9 +1,9 @@
 #pragma once 
 
-#include <list>
 #include <vector> 
+#include <tuple>
 
 template <typename T>
 using graph = std::vector<T>;
 
-typedef std::list<std::pair<int,int>> list_el;
+typedef std::tuple<int,int,int> edge;

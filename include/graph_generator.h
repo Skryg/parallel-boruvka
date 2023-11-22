@@ -7,7 +7,7 @@ constexpr int DEFAULT_M = 1024;
 constexpr int DEF_WEIGHT_MIN = 0;
 constexpr int DEF_WEIGHT_MAX = 1024;
 
-bool is_connected(const graph<list_el>&);
+bool is_connected(const graph<edge>&);
 
 class Generator 
 {
@@ -19,7 +19,7 @@ public:
     Generator();
     Generator(int,int);
     Generator(int,int,int,int);
-    graph<list_el> generate_graph();
+    graph<edge> generate_graph();
     void set_weight_min(int);
     void set_weight_max(int);
     void set_vertices(int);

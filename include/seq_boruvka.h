@@ -1,5 +1,7 @@
+#pragma once
+
 #include <vector>
 #include "graph_types.h"
 
-// returns vector of edges type (from, to, weight)
-std::vector<std::tuple<int,int,int>> boruvka_mst_seq(const graph<list_el>&);
+// returns graph of edges type (from, to, weight)
+graph<edge> boruvka_mst_seq(const graph<edge>&, int);
