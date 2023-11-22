@@ -4,6 +4,7 @@
 #include <random>
 #include <algorithm>
 
+
 #include "graph_generator.h"
 
 void dfs(int v, const graph<list_el> &g, std::vector<bool> &vis, int &cnt){
@@ -40,8 +41,9 @@ Generator::Generator(int n, int m, int wmin, int wmax)
 graph<list_el> Generator::generate_graph()
 {
     if(m<n-1) throw std::invalid_argument("Number of edges shouldn't be less than number of vertices-1.");
+    if((long long)n*(n-1)/2 < (long long)m) throw std::invalid_argument("Number of edges is too big");
     if(weight_max<weight_min) throw std::invalid_argument("Weight max cannot be less than weight min");
-    graph<list_el> g;
+    graph<list_el> g(n+1);
     std::set<std::pair<int,int>> edges;
     std::vector<int> nums(n);
     std::iota(nums.begin(),nums.end(),1);
@@ -80,6 +82,7 @@ graph<list_el> Generator::generate_graph()
             g[v1].push_back({v2,weight});
             g[v2].push_back({v1,weight});
             edges.insert({v1,v2});
+            --toadd;
         }
     }
     return g;
