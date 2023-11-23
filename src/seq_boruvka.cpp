@@ -34,7 +34,7 @@ graph<edge> boruvka_mst_seq(const graph<edge>& g, int n)
                 if(cmp1 != cmp2)
                 {
                     union_sets(cmp1, cmp2);
-                    std::cerr<<"UNION! "<< components_num()<<std::endl;
+                    // std::cerr<<"UNION! "<< components_num()<<std::endl;
                     mst.push_back(g[min[i]]);
                 }
             }
