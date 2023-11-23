@@ -1,7 +1,7 @@
 #include "dsu.h"
 
 std::vector<int> parent,rank;
-int numsets;
+volatile int numsets;
 
 void make_set(int size) 
 {

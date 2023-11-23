@@ -66,15 +66,22 @@ int main(int argc, char* argv[])
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cerr << "SEQ" << '\n';
+    int ans = 0;
     for(auto  [a,b,w] : gg){
-        std::cerr << a<< ' ' << b << ' ' << w << '\n';
+        ans+=w;
     }
+    std::cout << ans<<'\n';
     std::cout <<"Sequential Boruvka MST algorithm time: " << duration.count() << std::endl;
 
     start = std::chrono::high_resolution_clock::now();
-    boruvka_mst_par_threads(g,N);
+    graph<edge> gd = boruvka_mst_par_threads(g,N);
     stop = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    ans=0;
+    for(auto  [a,b,w] : gd){
+        ans+=w;
+    }
+    std::cout << ans<<'\n';
 
     std::cout <<"Parallel Boruvka MST algorithm with Threads library time: " << duration.count() << std::endl;
     
