@@ -9,7 +9,7 @@ graph<edge> boruvka_mst_seq(const graph<edge>& g, int n)
 
     while(components_num() > 1)
     {
-        std::vector<int> min(g.size(),-1);
+        std::vector<int> min(n+1,-1);
         for(int i=0;i<g.size();++i)
         {
             auto [v,w, weight] = g[i];
