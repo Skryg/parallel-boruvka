@@ -24,6 +24,15 @@ int find_set(int v)
     return parent[v];
 }
 
+int atomic_find_set(int v)
+{
+    int oldpar = parent[v];
+    if(v == oldpar) return v;
+    int par = atomic_find_set(parent[v]);
+    __sync_val_compare_and_swap(&parent[v],oldpar,par);
+    return parent[v];
+}
+
 void union_sets(int a, int b) 
 {
     a = find_set(a);
@@ -38,6 +47,7 @@ void union_sets(int a, int b)
         --numsets;
     }
 }
+
 
 int components_num()
 {
