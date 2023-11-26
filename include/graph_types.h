@@ -43,12 +43,12 @@ struct direct_flat_graph
     }
 
     //neighbourhood lists
-    int first_id(int v)
+    int first_id(int v) const
     {
         return nums[v-1];
     }
 
-    int last_id(int v)
+    int last_id(int v) const
     {
         return nums[v]-1;
     }

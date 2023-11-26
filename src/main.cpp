@@ -48,11 +48,18 @@ int main(int argc, char* argv[])
         ans+=w;
     }
     std::cout << ans<<'\n';
-    std::cout <<"Sequential Boruvka MST algorithm time: " << duration.count() << std::endl;
+    std::cout <<"Sequential Boruvka MST algorithm time: " << duration.count() << " ms"<< std::endl;
 
     start = std::chrono::high_resolution_clock::now();
-    graph<edge> gd = boruvka_mst_par_threads(g,N);
+    direct_flat_graph dfg(g, N);
     stop = std::chrono::high_resolution_clock::now();
+    std::cout<< "GRAPH TRANSFORM:"<<  std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count()<< " ms"<<std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    graph<edge> gd = boruvka_mst_par_threads(dfg,N);
+    stop = std::chrono::high_resolution_clock::now();
+
+
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     ans=0;
     for(auto  [a,b,w] : gd){
@@ -60,14 +67,14 @@ int main(int argc, char* argv[])
     }
     std::cout << ans<<'\n';
 
-    std::cout <<"Parallel Boruvka MST algorithm with Threads library time: " << duration.count() << std::endl;
+    std::cout <<"Parallel Boruvka MST algorithm with Threads library time: " << duration.count() << " ms"<< std::endl;
     
     start = std::chrono::high_resolution_clock::now();
-    boruvka_mst_par_openmp(g,N);
+    boruvka_mst_par_openmp(dfg,N);
     stop = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    std::cout <<"Parallel Boruvka MST algorithm with Threads library time: " << duration.count() << std::endl;
+    std::cout <<"Parallel Boruvka MST algorithm with OpenM library time: " << duration.count() << " ms" << std::endl;
 
     return 0;
 }

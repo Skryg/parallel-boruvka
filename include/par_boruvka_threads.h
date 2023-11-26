@@ -5,4 +5,4 @@
 
 constexpr int THREADS_NUM = 16;
 // returns vector of edges type (from, to, weight)
-graph<edge> boruvka_mst_par_threads(const graph<edge>&, int);
+graph<edge> boruvka_mst_par_threads(const direct_flat_graph&, int);

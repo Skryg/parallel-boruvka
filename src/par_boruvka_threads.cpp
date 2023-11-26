@@ -16,10 +16,8 @@ void join(std::vector<std::thread> &threads)
 
 }
 
-graph<edge> boruvka_mst_par_threads(const graph<edge> &gr, int n)
+graph<edge> boruvka_mst_par_threads(const direct_flat_graph &dfg, int n)
 {
-auto start = std::chrono::high_resolution_clock::now();
-    direct_flat_graph dfg(gr, n);
     graph<edge> mst;
     mst.resize(n-1);
     make_set(n);
@@ -33,11 +31,8 @@ auto start = std::chrono::high_resolution_clock::now();
     std::vector<int> processed(n+1);                   
     int iters = 0;
     
+    auto start = std::chrono::high_resolution_clock::now();
     auto stop = std::chrono::high_resolution_clock::now();
-    std::cout<< "GRAPH TRANSFORM:"<<  std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count()<<std::endl;
-
-    start = std::chrono::high_resolution_clock::now();
-    stop = std::chrono::high_resolution_clock::now();
 
     auto init = (stop-start);
     auto find = (stop-start);
