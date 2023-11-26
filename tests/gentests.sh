@@ -30,20 +30,22 @@ testt() {
 	../bin/main --testnum 5 < ${IN}/${NAME} > ${DIROUT}
 }
 
-
-generate 200 400
-testt 200 400
-generate 200 2000
-testt 200 2000
-generate 200 CLI
-testt 200 CLI
-
 generate 2000 4000
 testt 2000 4000
 generate 2000 100000
 testt 2000 100000
 generate 2000 CLI
 testt 2000 CLI
+
+
+generate 5000 10000
+testt 5000 10000
+generate 5000 800000
+testt 5000 800000
+generate 5000 CLI
+testt 5000 CLI
+
+
 
 generate 10000 20000
 testt 10000 20000
