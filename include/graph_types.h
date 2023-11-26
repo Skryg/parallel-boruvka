@@ -2,6 +2,7 @@
 
 #include <vector> 
 #include <tuple>
+#include <iostream>
 
 template <typename T>
 using graph = std::vector<T>;
@@ -14,16 +15,44 @@ using directed_graph = std::vector<std::vector<T>>;
 typedef std::pair<int,int> edge_map;
 
 
-inline directed_graph<edge_map> vertex_mapping(const graph<edge> &g, int n)
+struct direct_flat_graph
 {
-    directed_graph<edge_map> graph;
-    graph.resize(n+1);
-    for(int i=0;i<g.size();++i)
+    std::vector<int> nums;
+    graph<edge> gr;
+    direct_flat_graph(const graph<edge> &g, int n)
     {
-        auto [v,w,weight] = g[i];
-        graph[v].push_back({w,i});
-        graph[w].push_back({v,i});
+        nums.assign(n+1,0);
+        for(auto [v,w,weight] : g)
+        {
+            ++nums[v];
+            ++nums[w];
+        }
+        for(int i=1;i<=n;++i)
+        {
+            nums[i] = nums[i]+nums[i-1];
+        }
+
+
+        std::vector<int> positions = nums;
+        gr.resize(nums.back());
+        for(auto [v,w,weight] : g)
+        {
+            gr[positions[v-1]++]={v,w,weight};
+            gr[positions[w-1]++]={w,v,weight};
+        }
     }
 
-    return graph;
-}
+    //neighbourhood lists
+    int first_id(int v)
+    {
+        return nums[v-1];
+    }
+
+    int last_id(int v)
+    {
+        return nums[v]-1;
+    }
+
+
+};
+

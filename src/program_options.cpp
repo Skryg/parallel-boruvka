@@ -28,14 +28,17 @@ void program_options::parse(int argc, char* argv[])
 
         std::string str = argv[i];
         if(str == "--input")
-        args["input"]=1;
+            args["input"]=1;
         if(str == "--vertices")
             if(argv[i+1] != NULL)
                 args["n"] = get_num(argv[i+1]);
         if(str == "--edges")
             if(argv[i+1] != NULL)
                 args["m"] = get_num(argv[i+1]);
+        if(str == "--clique")
+            args["clique"]=1;
     }
+
 }
 
 bool program_options::has_arg(std::string s)

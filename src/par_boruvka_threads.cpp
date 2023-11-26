@@ -11,8 +11,7 @@
 void join(std::vector<std::thread> &threads)
 {
     for(int i=0;i<THREADS_NUM;++i){
-        // if(threads[i].joinable())
-            threads[i].join();
+        threads[i].join();
     }
 
 }
@@ -20,17 +19,12 @@ void join(std::vector<std::thread> &threads)
 graph<edge> boruvka_mst_par_threads(const graph<edge> &gr, int n)
 {
 auto start = std::chrono::high_resolution_clock::now();
-    directed_graph<edge_map> g = vertex_mapping(gr, n);
+    direct_flat_graph dfg(gr, n);
     graph<edge> mst;
     mst.resize(n-1);
     make_set(n);
 
-    int bignum = n;
-    const int VERT_NUM = n;
-
-    int vert_thread = (n+THREADS_NUM-1)/THREADS_NUM;
-    int edge_thread = (g.size()+THREADS_NUM-1)/THREADS_NUM;
-
+    
     std::vector<std::thread> threads;
     std::mutex locker[n+1];
     threads.reserve(THREADS_NUM);
@@ -40,31 +34,30 @@ auto start = std::chrono::high_resolution_clock::now();
     int iters = 0;
     
     auto stop = std::chrono::high_resolution_clock::now();
-    std::cout<< "SHITGRAF:"<<  std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count()<<std::endl;
+    std::cout<< "GRAPH TRANSFORM:"<<  std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count()<<std::endl;
 
     start = std::chrono::high_resolution_clock::now();
     stop = std::chrono::high_resolution_clock::now();
 
-    auto shit = (stop-start);
+    auto init = (stop-start);
     auto find = (stop-start);
     auto uni = (stop-start);
 
     while(components_num()>1)
     {
-        std::cerr<<"HI";
         start = std::chrono::high_resolution_clock::now();
 
         min.assign(n+1,{-1, -1});
         processed.assign(n+1,0);
 
         stop = std::chrono::high_resolution_clock::now();
-        shit+=(stop-start);
+        init+=(stop-start);
         start = std::chrono::high_resolution_clock::now();
 
         for(int i=0;i<THREADS_NUM;++i)
         {   
         
-            std::thread t = std::thread([&processed, &g, &n, &min,&locker,&gr]()
+            std::thread t = std::thread([&]()
             {
                 for(int i=1;i<=n;++i)
                 {
@@ -74,18 +67,17 @@ auto start = std::chrono::high_resolution_clock::now();
                     
                     int minimal = INT_MAX;
                     int min_id = -1;
-                    for(int j=0;j<g[i].size();++j)
+
+
+                    for(int j=dfg.first_id(i);j<=dfg.last_id(i);++j)
                     {   
-                        auto [v,index] = g[i][j];
+                        auto [w,v,weight] = dfg.gr[j];
                         v=atomic_find_set(v);
                     
                         if(v==com) continue;
-                    
-                        int weight = std::get<2>(gr[index]);
-
                         if(weight < minimal)
                         {
-                            min_id = index;
+                            min_id = j;
                             minimal = weight;
                         }
 
@@ -115,14 +107,13 @@ auto start = std::chrono::high_resolution_clock::now();
         {
             if(min[i].second != -1)
             {
-                auto [v,w,weight] = gr[min[i].second];
+                auto [v,w,weight] = dfg.gr[min[i].second];
                 int cmp1 = find_set(v);
                 int cmp2 = find_set(w);
                 if(cmp1 != cmp2)
                 {
                     union_sets(cmp1, cmp2);
-                    // std::cerr<<"UNION! "<< components_num()<<std::endl;
-                    mst.push_back(gr[min[i].second]);
+                    mst.push_back(dfg.gr[min[i].second]);
                 }
             }
         }
@@ -131,7 +122,7 @@ auto start = std::chrono::high_resolution_clock::now();
 
     }
 
-    std::cout<< "SHIT:"<<  std::chrono::duration_cast<std::chrono::microseconds>(shit).count()<<std::endl;
+    std::cout<< "INIT:"<<  std::chrono::duration_cast<std::chrono::microseconds>(init).count()<<std::endl;
     std::cout<< "FIND:" <<std::chrono::duration_cast<std::chrono::microseconds>(find).count()<<std::endl;
     std::cout<< "UNION:"<<std::chrono::duration_cast<std::chrono::microseconds>(uni).count()<<std::endl;
 

@@ -6,7 +6,7 @@ TEST_DIR=tests
 
 PROG_NAME=main
 CC=g++
-CFLAGS=-I$(INC_DIR) -g -O3 -std=c++17 -pthread
+CFLAGS=-I$(INC_DIR) -g -O3 -std=c++17 -pthread -fsanitize=address
 
 SRCS=main.cpp dsu.cpp seq_boruvka.cpp par_boruvka_openmp.cpp par_boruvka_threads.cpp
 OBJS:=$(SRCS:.cpp=.o)

@@ -20,7 +20,16 @@ int main(int argc, char* argv[])
     if(program_options::has_arg("m")) M = program_options::get_arg("m");
 
     Generator gen(N,M);
-    g = gen.generate_graph();
+
+    if(program_options::has_arg("clique"))
+    {
+        g = gen.generate_clique();
+        M = (long long)N*(N-1)/2;
+    }
+    else
+    {
+        g = gen.generate_graph();
+    }
 
     
     std::cout<<N<<' '<<M<<'\n';

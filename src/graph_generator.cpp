@@ -88,6 +88,25 @@ graph<edge> Generator::generate_graph()
     return g;
 }
 
+graph<edge> Generator::generate_clique()
+{
+    if(weight_max<weight_min) throw std::invalid_argument("Weight max cannot be less than weight min");
+
+    std::random_device r;
+    std::default_random_engine rng(r()); 
+    std::uniform_int_distribution<> weight_dst(weight_min,weight_max);
+
+    graph<edge> g; 
+    for(int i=1;i<=n;++i)
+    {
+        for(int j=i+1; j<=n; ++j)
+        {
+            g.push_back({i,j,weight_dst(rng)});
+        }
+    }
+    return g;
+}
+
 void Generator::set_weight_min(int w)
 {
     weight_min=w;

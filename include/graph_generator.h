@@ -20,6 +20,7 @@ public:
     Generator(int,int);
     Generator(int,int,int,int);
     graph<edge> generate_graph();
+    graph<edge> generate_clique();
     void set_weight_min(int);
     void set_weight_max(int);
     void set_vertices(int);
