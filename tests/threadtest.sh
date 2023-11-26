@@ -11,7 +11,7 @@ test -d ${OUTT} || mkdir ${OUTT}
 
 testt() {
 	NAME=V${1}M${2}
-	DIROUT=${OUTT}/${NAME}
+	DIROUT=${OUTT}/${NAME}T${3}
 
 	../bin/main --testnum 5 --threads ${3} < ${IN}/${NAME} > ${DIROUT}
 }
