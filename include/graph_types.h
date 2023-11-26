@@ -20,7 +20,7 @@ struct direct_flat_graph
     std::vector<int> nums;
     graph<edge> gr;
     
-    direct_flat_graph(const graph<edge> &g, int n);
+    direct_flat_graph(const graph<edge> &g, int n, int);
 
     //neighbourhood lists
     inline int first_id(int v) const

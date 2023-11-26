@@ -10,13 +10,13 @@
 
 void join(std::vector<std::thread> &threads)
 {
-    for(int i=0;i<THREADS_NUM;++i){
+    for(int i=0;i<threads.size();++i){
         threads[i].join();
     }
 
 }
 
-graph<edge> boruvka_mst_par_threads(const direct_flat_graph &dfg, int n)
+graph<edge> boruvka_mst_par_threads(const direct_flat_graph &dfg, int n, const int THREADS_NUM)
 {
     graph<edge> mst;
     mst.resize(n-1);

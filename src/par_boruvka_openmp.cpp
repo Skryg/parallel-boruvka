@@ -5,7 +5,7 @@
 #include <chrono>
 #include <climits>
 
-graph<edge> boruvka_mst_par_openmp(const direct_flat_graph &dfg, int n)
+graph<edge> boruvka_mst_par_openmp(const direct_flat_graph &dfg, int n, const int OMP_THREADS_NUM)
 {
     omp_set_num_threads(OMP_THREADS_NUM);
     omp_lock_t locks[n+1];

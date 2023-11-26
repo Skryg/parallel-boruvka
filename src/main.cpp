@@ -37,6 +37,10 @@ int main(int argc, char* argv[])
     if(program_options::has_arg("testnum"))
         z = program_options::get_arg("testnum");
     
+    int threads=16;
+    if(program_options::has_arg("threads"))
+        threads = program_options::get_arg("threads");
+    
     long long seq{0}, part{0}, paro{0}, gra{0};
 
     for(int i=0;i<z;++i)
@@ -69,7 +73,7 @@ int main(int argc, char* argv[])
         seq+=duration.count();
 
         start = std::chrono::high_resolution_clock::now();
-        direct_flat_graph dfg(g, N);
+        direct_flat_graph dfg(g, N,threads);
         stop = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<time_type>(stop-start);
         std::cout<< "GRAPH TRANSFORM:"<< duration.count() << " ms"<<std::endl;
@@ -78,7 +82,7 @@ int main(int argc, char* argv[])
 
 
         start = std::chrono::high_resolution_clock::now();
-        graph<edge> gd = boruvka_mst_par_threads(dfg,N);
+        graph<edge> gd = boruvka_mst_par_threads(dfg,N,threads);
         stop = std::chrono::high_resolution_clock::now();
 
         
@@ -98,7 +102,7 @@ int main(int argc, char* argv[])
 
 
         start = std::chrono::high_resolution_clock::now();
-        graph<edge> go = boruvka_mst_par_openmp(dfg,N);
+        graph<edge> go = boruvka_mst_par_openmp(dfg,N,threads);
         stop = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<time_type>(stop - start);
         ans=0;

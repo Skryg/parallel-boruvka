@@ -1,7 +1,7 @@
 #include "graph_types.h"
 #include <omp.h>
 
-direct_flat_graph::direct_flat_graph(const graph<edge> &g, int n)
+direct_flat_graph::direct_flat_graph(const graph<edge> &g, int n, const int THREADS_NUM)
 {
     omp_lock_t locks[n+1];
     for(int i=1;i<=n;++i)
@@ -21,7 +21,7 @@ direct_flat_graph::direct_flat_graph(const graph<edge> &g, int n)
 
     std::vector<int> positions = nums;
     gr.resize(nums.back());
-    #pragma omp parallel for num_threads(16)
+    #pragma omp parallel for num_threads(THREADS_NUM)
     for(auto [v,w,weight] : g)
     {
         omp_set_lock(locks+v); 

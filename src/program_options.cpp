@@ -44,6 +44,9 @@ void program_options::parse(int argc, char* argv[])
         if(str == "--testnum")
             if(argv[i+1] != NULL)
                 args["testnum"] = get_num(argv[i+1]);
+        if(str == "--threads")
+            if(argv[i+1] != NULL)
+                args["threads"] = get_num(argv[i+1]);
         if(str == "--clique")
             args["clique"]=1;
     }
