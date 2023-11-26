@@ -41,6 +41,9 @@ void program_options::parse(int argc, char* argv[])
         if(str == "--edges")
             if(argv[i+1] != NULL)
                 args["m"] = get_num(argv[i+1]);
+        if(str == "--testnum")
+            if(argv[i+1] != NULL)
+                args["testnum"] = get_num(argv[i+1]);
         if(str == "--clique")
             args["clique"]=1;
     }

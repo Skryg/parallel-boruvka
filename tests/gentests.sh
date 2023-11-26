@@ -1,11 +1,54 @@
 #!/bin/bash
 FILES=testfiles
+IN=${FILES}/in
+OUT=${FILES}/out
+FLAGS="--min-weight 10 --max-weight 1000" 
+
 test -d ${FILES} || mkdir ${FILES}
- 
-for i in 100 1000 10000 100000
-do
-	for (( c = i; c <= i*10000; c*=10 ))
+test -d ${IN} || mkdir ${IN}
+test -d ${OUT} || mkdir ${OUT}
+
+generate() {
+	DIRIN=${IN}/V${1}M${2}
+	
+	for i in {1..5}
 	do
-		./bin/test --vertices $i --edges $c > ./${FILES}/testN${i}M${c}
+		if [ "$2" =  "CLI" ]; then
+			echo "./bin/test --vertices $1 --clique ${FLAGS} >> ${DIRIN}"
+			./bin/test --vertices $1 --clique ${FLAGS} >> ${DIRIN}
+		else
+			echo "./bin/test --vertices $1 --edges $2 ${FLAGS} >> ${DIRIN}"
+			./bin/test --vertices $1 --edges $2 ${FLAGS} >> ${DIRIN}
+		fi
 	done
-done
+}
+
+testt() {
+	NAME=V${1}M${2}
+	DIROUT=${OUT}/${NAME}
+
+	../bin/main --testnum 5 < ${IN}/${NAME} > ${DIROUT}
+}
+
+
+generate 200 400
+testt 200 400
+generate 200 2000
+testt 200 2000
+generate 200 CLI
+testt 200 CLI
+
+generate 2000 4000
+testt 2000 4000
+generate 2000 100000
+testt 2000 100000
+generate 2000 CLI
+testt 2000 CLI
+
+generate 10000 20000
+testt 10000 20000
+generate 10000 10000000
+testt 10000 10000000
+generate 10000 CLI
+testt 10000 CLI
+
