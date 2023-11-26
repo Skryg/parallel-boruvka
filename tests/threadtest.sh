@@ -16,14 +16,14 @@ testt() {
 	../bin/main --testnum 5 --threads ${3} < ${IN}/${NAME} > ${DIROUT}
 }
 
-testt 5000 CLI 1
-testt 5000 CLI 2
-testt 5000 CLI 4
-testt 5000 CLI 8
-testt 5000 CLI 12
-testt 5000 CLI 16
-testt 5000 CLI 24
-testt 5000 CLI 32
+testt 5000 10000 1
+testt 5000 10000 2
+testt 5000 10000 4
+testt 5000 10000 8
+testt 5000 10000 12
+testt 5000 10000 16
+testt 5000 10000 24
+testt 5000 10000 32
 
 
 
