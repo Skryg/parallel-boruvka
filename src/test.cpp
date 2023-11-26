@@ -15,11 +15,12 @@ int main(int argc, char* argv[])
     int N = DEFAULT_N;
     int M = DEFAULT_M;
 
-
     if(program_options::has_arg("n")) N = program_options::get_arg("n");
     if(program_options::has_arg("m")) M = program_options::get_arg("m");
+    Generator gen(N,M); 
+    if(program_options::has_arg("max-weight")) gen.set_weight_max(program_options::get_arg("max-weight"));
+    if(program_options::has_arg("min-weight")) gen.set_weight_min(program_options::get_arg("min-weight"));
 
-    Generator gen(N,M);
 
     if(program_options::has_arg("clique"))
     {

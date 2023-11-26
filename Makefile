@@ -6,9 +6,9 @@ TEST_DIR=tests
 
 PROG_NAME=main
 CC=g++
-CFLAGS=-I$(INC_DIR) -g -std=c++17 -pthread -fopenmp -fsanitize=address
+CFLAGS=-I$(INC_DIR) -g -std=c++17 -pthread -fopenmp -fsanitize=address -O3
 
-SRCS=main.cpp dsu.cpp seq_boruvka.cpp par_boruvka_openmp.cpp par_boruvka_threads.cpp
+SRCS=main.cpp dsu.cpp seq_boruvka.cpp par_boruvka_openmp.cpp par_boruvka_threads.cpp direct_flat_graph.cpp
 OBJS:=$(SRCS:.cpp=.o)
 OBJS:=$(addprefix $(OBJ_DIR)/,$(OBJS))
 

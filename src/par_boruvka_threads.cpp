@@ -75,7 +75,6 @@ graph<edge> boruvka_mst_par_threads(const direct_flat_graph &dfg, int n)
                             min_id = j;
                             minimal = weight;
                         }
-
                     }
                     if(min_id == -1) 
                         continue;
@@ -117,9 +116,9 @@ graph<edge> boruvka_mst_par_threads(const direct_flat_graph &dfg, int n)
 
     }
 
-    std::cout<< "INIT:"<<  std::chrono::duration_cast<std::chrono::microseconds>(init).count()<<std::endl;
-    std::cout<< "FIND:" <<std::chrono::duration_cast<std::chrono::microseconds>(find).count()<<std::endl;
-    std::cout<< "UNION:"<<std::chrono::duration_cast<std::chrono::microseconds>(uni).count()<<std::endl;
+    std::cout<< "INIT:"<<  std::chrono::duration_cast<std::chrono::milliseconds>(init).count()<<std::endl;
+    std::cout<< "FIND:" <<std::chrono::duration_cast<std::chrono::milliseconds>(find).count()<<std::endl;
+    std::cout<< "UNION:"<<std::chrono::duration_cast<std::chrono::milliseconds>(uni).count()<<std::endl;
 
     
     return mst;

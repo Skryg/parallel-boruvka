@@ -9,6 +9,8 @@
 #include "par_boruvka_openmp.h"
 
 
+typedef std::chrono::milliseconds time_type;
+
 graph<edge> graph_input(int N, int M)
 {
     graph<edge> g;
@@ -41,38 +43,51 @@ int main(int argc, char* argv[])
     auto start = std::chrono::high_resolution_clock::now();
     graph<edge> gg = boruvka_mst_seq(g,N);
     auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    std::cerr << "SEQ" << '\n';
-    int ans = 0;
+    auto duration = std::chrono::duration_cast<time_type>(stop - start);
+    std::cout << " --- Sequential Boruvka MST --- " << std::endl;
+    long long ans = 0;
     for(auto  [a,b,w] : gg){
         ans+=w;
     }
-    std::cout << ans<<'\n';
+    std::cout << "TOTAL WEIGHT: " << ans<<std::endl;
     std::cout <<"Sequential Boruvka MST algorithm time: " << duration.count() << " ms"<< std::endl;
 
     start = std::chrono::high_resolution_clock::now();
     direct_flat_graph dfg(g, N);
     stop = std::chrono::high_resolution_clock::now();
-    std::cout<< "GRAPH TRANSFORM:"<<  std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count()<< " ms"<<std::endl;
+    std::cout<< "GRAPH TRANSFORM:"<<  std::chrono::duration_cast<time_type>(stop-start).count()<< " ms"<<std::endl;
+
+    std::cout << " --- Parallel Boruvka MST (thread) --- " << std::endl;
+
 
     start = std::chrono::high_resolution_clock::now();
     graph<edge> gd = boruvka_mst_par_threads(dfg,N);
     stop = std::chrono::high_resolution_clock::now();
 
+    
 
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    duration = std::chrono::duration_cast<time_type>(stop - start);
     ans=0;
     for(auto  [a,b,w] : gd){
         ans+=w;
     }
-    std::cout << ans<<'\n';
+    std::cout<< "TOTAL WEIGHT: " << ans<< std::endl;
 
     std::cout <<"Parallel Boruvka MST algorithm with Threads library time: " << duration.count() << " ms"<< std::endl;
     
+
+    std::cout << " --- Parallel Boruvka MST (OpenMP) --- " << std::endl;
+
+
     start = std::chrono::high_resolution_clock::now();
-    boruvka_mst_par_openmp(dfg,N);
+    graph<edge> go = boruvka_mst_par_openmp(dfg,N);
     stop = std::chrono::high_resolution_clock::now();
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    duration = std::chrono::duration_cast<time_type>(stop - start);
+    ans=0;
+    for(auto  [a,b,w] : go){
+        ans+=w;
+    }
+    std::cout << "TOTAL WEIGHT: " << ans<<'\n';
 
     std::cout <<"Parallel Boruvka MST algorithm with OpenM library time: " << duration.count() << " ms" << std::endl;
 

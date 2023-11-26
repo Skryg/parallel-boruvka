@@ -11,8 +11,7 @@ graph<edge> boruvka_mst_par_openmp(const direct_flat_graph &dfg, int n)
     omp_lock_t locks[n+1];
     for(int i=1;i<=n;++i) 
         omp_init_lock(locks+i);
-
-    
+           
     graph<edge> mst;
     mst.resize(n-1);
     make_set(n);
@@ -100,9 +99,9 @@ graph<edge> boruvka_mst_par_openmp(const direct_flat_graph &dfg, int n)
 
     }
 
-    std::cout<< "INIT:"<<  std::chrono::duration_cast<std::chrono::microseconds>(init).count()<<std::endl;
-    std::cout<< "FIND:" <<std::chrono::duration_cast<std::chrono::microseconds>(find).count()<<std::endl;
-    std::cout<< "UNION:"<<std::chrono::duration_cast<std::chrono::microseconds>(uni).count()<<std::endl;
+    std::cout<< "INIT:"<<  std::chrono::duration_cast<std::chrono::milliseconds>(init).count()<<std::endl;
+    std::cout<< "FIND:" <<std::chrono::duration_cast<std::chrono::milliseconds>(find).count()<<std::endl;
+    std::cout<< "UNION:"<<std::chrono::duration_cast<std::chrono::milliseconds>(uni).count()<<std::endl;
 
     
     return mst;        

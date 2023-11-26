@@ -32,6 +32,12 @@ void program_options::parse(int argc, char* argv[])
         if(str == "--vertices")
             if(argv[i+1] != NULL)
                 args["n"] = get_num(argv[i+1]);
+        if(str == "--max-weight")
+            if(argv[i+1] != NULL)
+                args["max-weight"] = get_num(argv[i+1]);
+        if(str == "--min-weight")
+            if(argv[i+1] != NULL)
+                args["min-weight"] = get_num(argv[i+1]);
         if(str == "--edges")
             if(argv[i+1] != NULL)
                 args["m"] = get_num(argv[i+1]);
